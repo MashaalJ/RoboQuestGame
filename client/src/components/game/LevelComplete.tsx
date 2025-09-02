@@ -18,10 +18,14 @@ export default function LevelComplete() {
             Score: {score}
           </p>
           <p className="text-gray-600">
-            {currentLevel === 1 && "Great job collecting sensors! 👁️"}
+            {currentLevel === 1 && "Great job collecting sensors! 📡"}
             {currentLevel === 2 && "Excellent work with motors and gears! ⚙️"}
             {currentLevel === 3 && "Amazing! You found all the batteries and wires! 🔋"}
           </p>
+        </div>
+
+        <div className="text-xs text-gray-400 mb-4">
+          🎓 STEMverse Learning Progress
         </div>
 
         <button

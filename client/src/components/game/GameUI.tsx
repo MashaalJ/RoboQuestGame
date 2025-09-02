@@ -61,6 +61,13 @@ export default function GameUI() {
           {currentLevel === 3 && "Find batteries and wires to complete your robot!"}
         </p>
       </div>
+      
+      {/* STEMverse Footer */}
+      <div className="absolute bottom-4 right-4">
+        <div className="bg-black bg-opacity-40 rounded px-2 py-1 text-xs text-gray-300">
+          STEMverse
+        </div>
+      </div>
     </div>
   );
 }

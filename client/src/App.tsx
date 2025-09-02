@@ -50,6 +50,7 @@ function App() {
       {phase === "menu" && (
         <div className="absolute inset-0 bg-black bg-opacity-80 flex flex-col items-center justify-center z-50">
           <div className="text-center p-8">
+            <div className="text-sm text-gray-400 mb-2">STEMverse presents</div>
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
               🤖 RoboQuest
             </h1>
@@ -65,6 +66,9 @@ function App() {
             <p className="text-gray-300 mt-4 text-sm">
               Collect robot parts and learn about robotics!
             </p>
+            <div className="mt-6 text-xs text-gray-500">
+              Powered by STEMverse Educational Platform
+            </div>
           </div>
         </div>
       )}
@@ -79,9 +83,12 @@ function App() {
             <h2 className="text-xl md:text-2xl text-white mb-4">
               Your robot is complete!
             </h2>
-            <p className="text-lg text-blue-300 mb-8">
+            <p className="text-lg text-blue-300 mb-4">
               Intro to Robotics unlocked!
             </p>
+            <div className="text-sm text-gray-300 mb-8">
+              🎓 STEMverse Learning Achievement
+            </div>
             <div className="bg-white bg-opacity-10 rounded-lg p-6 mb-8">
               <p className="text-white text-xl">Final Score: {score}</p>
             </div>
@@ -91,6 +98,9 @@ function App() {
             >
               Play Again! 🔄
             </button>
+            <div className="mt-6 text-xs text-gray-400">
+              Continue learning with STEMverse
+            </div>
           </div>
         </div>
       )}

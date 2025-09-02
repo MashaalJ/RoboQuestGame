@@ -2,6 +2,8 @@
 
 RoboQuest is an educational mobile game that teaches robotics concepts through an interactive platformer experience. Players control a robot character to collect different robot parts (sensors, motors, wires, gears, batteries) while learning about their functions through educational popups. The game features three levels with increasing difficulty, hazards to avoid, and a progression system that rewards learning.
 
+The game is fully branded with STEMverse throughout the interface including menu screens, educational content, and completion screens.
+
 # User Preferences
 
 Preferred communication style: Simple, everyday language.

@@ -16,6 +16,9 @@ export default function EducationalPopup() {
           <p className="text-gray-600 mb-6 leading-relaxed">
             {currentFact}
           </p>
+          <div className="text-xs text-gray-400 mb-4 border-t pt-3">
+            Educational content by STEMverse
+          </div>
           <button
             onClick={hideFact}
             className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-full transition-all transform hover:scale-105"
