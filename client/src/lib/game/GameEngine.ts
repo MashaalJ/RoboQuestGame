@@ -103,7 +103,7 @@ export class GameEngine {
       if (this.physics.checkCollision(this.player, collectible)) {
         // Collect item
         this.gameStore.getState().updateScore(10);
-        this.gameStore.getState().showFact(collectible.fact, collectible.emoji);
+        this.gameStore.getState().showFact(collectible.fact, collectible.emoji, collectible.type);
         
         // Play success sound
         useAudio.getState().playSuccess();
@@ -141,6 +141,11 @@ export class GameEngine {
   }
 
   private render() {
+    // Update camera to follow player
+    const cameraX = this.player.x - this.canvas.width / 2;
+    const cameraY = this.player.y - this.canvas.height / 2;
+    this.renderer.setCamera(cameraX, cameraY);
+    
     // Clear canvas
     this.renderer.clear();
     
@@ -152,11 +157,6 @@ export class GameEngine {
     
     // Render player
     this.renderer.renderPlayer(this.player);
-    
-    // Debug logging
-    if (Math.random() < 0.01) { // Log only occasionally to avoid spam
-      console.log(`Player position: (${this.player.x}, ${this.player.y}), Canvas: ${this.canvas.width}x${this.canvas.height}`);
-    }
   }
 
   private updateLevelProgress() {
@@ -168,8 +168,5 @@ export class GameEngine {
   // Input methods
   public setInput(key: 'left' | 'right' | 'jump', pressed: boolean) {
     this.inputState[key] = pressed;
-    if (pressed) {
-      console.log(`Input: ${key} pressed, Player at (${this.player.x}, ${this.player.y})`);
-    }
   }
 }

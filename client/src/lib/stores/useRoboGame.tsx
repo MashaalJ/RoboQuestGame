@@ -25,6 +25,7 @@ export interface GameState {
     collected: number;
     total: number;
   };
+  collectedItemTypes: Set<string>;
 }
 
 interface RoboGameStore extends GameState {
@@ -38,7 +39,7 @@ interface RoboGameStore extends GameState {
   completeGame: () => void;
   updateScore: (points: number) => void;
   loseLife: () => void;
-  showFact: (fact: string, emoji: string) => void;
+  showFact: (fact: string, emoji: string, itemType: string) => void;
   hideFact: () => void;
   updateLevelProgress: (collected: number, total: number) => void;
   setGameEngine: (engine: GameEngine) => void;
@@ -59,6 +60,7 @@ export const useRoboGame = create<RoboGameStore>()(
       collected: 0,
       total: 0,
     },
+    collectedItemTypes: new Set(),
 
     // Actions
     initializeGame: () => {
@@ -96,7 +98,8 @@ export const useRoboGame = create<RoboGameStore>()(
         showEducationalPopup: false,
         currentFact: "",
         currentFactEmoji: "",
-        levelProgress: { collected: 0, total: 0 }
+        levelProgress: { collected: 0, total: 0 },
+        collectedItemTypes: new Set()
       });
     },
 
@@ -133,12 +136,18 @@ export const useRoboGame = create<RoboGameStore>()(
       });
     },
 
-    showFact: (fact: string, emoji: string) => {
-      set({
-        showEducationalPopup: true,
-        currentFact: fact,
-        currentFactEmoji: emoji
-      });
+    showFact: (fact: string, emoji: string, itemType: string) => {
+      const { collectedItemTypes } = get();
+      
+      // Only show popup if this is the first time collecting this type
+      if (!collectedItemTypes.has(itemType)) {
+        set((state) => ({
+          showEducationalPopup: true,
+          currentFact: fact,
+          currentFactEmoji: emoji,
+          collectedItemTypes: new Set([...Array.from(state.collectedItemTypes), itemType])
+        }));
+      }
     },
 
     hideFact: () => {

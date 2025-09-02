@@ -16,27 +16,27 @@ export class Collectible {
     // Set properties based on type
     switch (type) {
       case 'sensor':
-        this.fact = "Robots use sensors to detect the world around them, like cameras and microphones!";
-        this.emoji = "👁️";
+        this.fact = "Ultrasonic sensors measure distance using sound waves at 40kHz frequency!";
+        this.emoji = "📡";
         this.color = "#FF6B6B";
         break;
       case 'motor':
-        this.fact = "Motors help robots move their parts, like wheels, arms, and legs!";
-        this.emoji = "⚙️";
+        this.fact = "Servo motors can rotate precisely to specific angles with 180° range!";
+        this.emoji = "🔧";
         this.color = "#4ECDC4";
         break;
       case 'wire':
-        this.fact = "Wires connect robot parts together so they can communicate!";
+        this.fact = "Copper wires carry electrical signals at 3.3V or 5V between components!";
         this.emoji = "🔌";
         this.color = "#45B7D1";
         break;
       case 'gear':
-        this.fact = "Gears help robots move more precisely and with more power!";
+        this.fact = "Gear ratios multiply torque - a 10:1 ratio increases force by 10x!";
         this.emoji = "⚙️";
         this.color = "#96CEB4";
         break;
       case 'battery':
-        this.fact = "Batteries provide energy for robots to power all their systems!";
+        this.fact = "Lithium-ion batteries provide 3.7V per cell with 2000+ charge cycles!";
         this.emoji = "🔋";
         this.color = "#FFEAA7";
         break;

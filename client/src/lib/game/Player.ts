@@ -35,14 +35,8 @@ export class Player {
     // Apply horizontal movement
     this.x += this.velocityX * deltaTime;
 
-    // Keep player on screen horizontally (use dynamic canvas width)
-    // Note: This 800 is hardcoded but canvas might be different size
-    this.x = Math.max(0, Math.min(this.x, 800 - this.width));
-    
-    // Debug logging
-    if (this.velocityX !== 0 || this.velocityY !== 0) {
-      console.log(`Player moving: pos(${this.x.toFixed(1)}, ${this.y.toFixed(1)}), vel(${this.velocityX.toFixed(1)}, ${this.velocityY.toFixed(1)}), onGround: ${this.onGround}`);
-    }
+    // Keep player within world bounds (much larger world now)
+    this.x = Math.max(0, Math.min(this.x, 2000 - this.width));
   }
 
   public reset(x: number, y: number) {

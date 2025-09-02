@@ -5,6 +5,8 @@ export class Renderer {
   private ctx: CanvasRenderingContext2D;
   private width: number = 0;
   private height: number = 0;
+  private cameraX: number = 0;
+  private cameraY: number = 0;
 
   constructor(ctx: CanvasRenderingContext2D) {
     this.ctx = ctx;
@@ -13,6 +15,11 @@ export class Renderer {
   public setDimensions(width: number, height: number) {
     this.width = width;
     this.height = height;
+  }
+
+  public setCamera(x: number, y: number) {
+    this.cameraX = x;
+    this.cameraY = y;
   }
 
   public clear() {
@@ -45,15 +52,15 @@ export class Renderer {
   }
 
   public renderLevel(level: Level) {
-    // Render platforms
+    // Render platforms with camera offset
     for (const platform of level.platforms) {
       this.ctx.fillStyle = platform.color;
-      this.ctx.fillRect(platform.x, platform.y, platform.width, platform.height);
+      this.ctx.fillRect(platform.x - this.cameraX, platform.y - this.cameraY, platform.width, platform.height);
       
-      // Add platform border
+      // Add platform border with camera offset
       this.ctx.strokeStyle = '#654321';
       this.ctx.lineWidth = 2;
-      this.ctx.strokeRect(platform.x, platform.y, platform.width, platform.height);
+      this.ctx.strokeRect(platform.x - this.cameraX, platform.y - this.cameraY, platform.width, platform.height);
     }
 
     // Render collectibles
@@ -71,8 +78,8 @@ export class Renderer {
       this.ctx.fillStyle = collectible.color;
       this.ctx.beginPath();
       this.ctx.arc(
-        collectible.x + collectible.width / 2,
-        collectible.y + collectible.height / 2,
+        collectible.x + collectible.width / 2 - this.cameraX,
+        collectible.y + collectible.height / 2 - this.cameraY,
         collectible.width / 2,
         0,
         Math.PI * 2
@@ -86,8 +93,8 @@ export class Renderer {
       this.ctx.fillStyle = 'white';
       this.ctx.fillText(
         collectible.emoji,
-        collectible.x + collectible.width / 2,
-        collectible.y + collectible.height / 2
+        collectible.x + collectible.width / 2 - this.cameraX,
+        collectible.y + collectible.height / 2 - this.cameraY
       );
     }
 
@@ -103,9 +110,9 @@ export class Renderer {
         this.ctx.shadowBlur = 8;
       }
       
-      // Background
+      // Background with camera offset
       this.ctx.fillStyle = hazard.hasHit ? '#888888' : hazard.color;
-      this.ctx.fillRect(hazard.x, hazard.y, hazard.width, hazard.height);
+      this.ctx.fillRect(hazard.x - this.cameraX, hazard.y - this.cameraY, hazard.width, hazard.height);
       
       // Reset shadow
       this.ctx.shadowBlur = 0;
@@ -114,50 +121,49 @@ export class Renderer {
       this.ctx.fillStyle = 'white';
       this.ctx.fillText(
         hazard.emoji,
-        hazard.x + hazard.width / 2,
-        hazard.y + hazard.height / 2
+        hazard.x + hazard.width / 2 - this.cameraX,
+        hazard.y + hazard.height / 2 - this.cameraY
       );
     }
   }
 
   public renderPlayer(player: Player) {
-    // Debug logging (occasional)
-    if (Math.random() < 0.1) {
-      console.log(`Rendering player at (${player.x}, ${player.y}) with size ${player.width}x${player.height}`);
-    }
-    
     // Draw robot character
     this.ctx.fillStyle = player.color;
     
+    // Apply camera offset to player rendering
+    const renderX = player.x - this.cameraX;
+    const renderY = player.y - this.cameraY;
+    
     // Robot body
-    this.ctx.fillRect(player.x + 4, player.y + 8, player.width - 8, player.height - 12);
+    this.ctx.fillRect(renderX + 4, renderY + 8, player.width - 8, player.height - 12);
     
     // Robot head
     this.ctx.fillStyle = '#5A9BD4';
-    this.ctx.fillRect(player.x + 8, player.y, player.width - 16, 12);
+    this.ctx.fillRect(renderX + 8, renderY, player.width - 16, 12);
     
     // Robot eyes
     this.ctx.fillStyle = '#FFD700';
-    this.ctx.fillRect(player.x + 10, player.y + 2, 4, 4);
-    this.ctx.fillRect(player.x + player.width - 14, player.y + 2, 4, 4);
+    this.ctx.fillRect(renderX + 10, renderY + 2, 4, 4);
+    this.ctx.fillRect(renderX + player.width - 14, renderY + 2, 4, 4);
     
     // Robot antenna
     this.ctx.strokeStyle = '#FFD700';
     this.ctx.lineWidth = 2;
     this.ctx.beginPath();
-    this.ctx.moveTo(player.x + player.width / 2, player.y);
-    this.ctx.lineTo(player.x + player.width / 2, player.y - 6);
+    this.ctx.moveTo(renderX + player.width / 2, renderY);
+    this.ctx.lineTo(renderX + player.width / 2, renderY - 6);
     this.ctx.stroke();
     
     // Antenna light
     this.ctx.fillStyle = '#FF4444';
     this.ctx.beginPath();
-    this.ctx.arc(player.x + player.width / 2, player.y - 6, 2, 0, Math.PI * 2);
+    this.ctx.arc(renderX + player.width / 2, renderY - 6, 2, 0, Math.PI * 2);
     this.ctx.fill();
     
     // Robot legs
     this.ctx.fillStyle = player.color;
-    this.ctx.fillRect(player.x + 6, player.y + player.height - 4, 6, 4);
-    this.ctx.fillRect(player.x + player.width - 12, player.y + player.height - 4, 6, 4);
+    this.ctx.fillRect(renderX + 6, renderY + player.height - 4, 6, 4);
+    this.ctx.fillRect(renderX + player.width - 12, renderY + player.height - 4, 6, 4);
   }
 }
