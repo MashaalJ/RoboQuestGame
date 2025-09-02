@@ -121,6 +121,11 @@ export class Renderer {
   }
 
   public renderPlayer(player: Player) {
+    // Debug logging (occasional)
+    if (Math.random() < 0.1) {
+      console.log(`Rendering player at (${player.x}, ${player.y}) with size ${player.width}x${player.height}`);
+    }
+    
     // Draw robot character
     this.ctx.fillStyle = player.color;
     

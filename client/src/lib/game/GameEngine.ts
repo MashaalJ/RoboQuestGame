@@ -4,6 +4,7 @@ import { Physics } from './Physics';
 import { Renderer } from './Renderer';
 import { Collectible } from './Collectible';
 import { Hazard } from './Hazard';
+import { useAudio } from '../stores/useAudio';
 
 export class GameEngine {
   private canvas: HTMLCanvasElement;
@@ -105,8 +106,7 @@ export class GameEngine {
         this.gameStore.getState().showFact(collectible.fact, collectible.emoji);
         
         // Play success sound
-        const audioStore = require('../stores/useAudio').useAudio;
-        audioStore.getState().playSuccess();
+        useAudio.getState().playSuccess();
         
         // Remove collectible
         this.currentLevel.collectibles.splice(index, 1);
@@ -121,8 +121,7 @@ export class GameEngine {
           this.gameStore.getState().updateScore(-5);
           
           // Play hit sound
-          const audioStore = require('../stores/useAudio').useAudio;
-          audioStore.getState().playHit();
+          useAudio.getState().playHit();
           
           hazard.hasHit = true;
           
@@ -153,6 +152,11 @@ export class GameEngine {
     
     // Render player
     this.renderer.renderPlayer(this.player);
+    
+    // Debug logging
+    if (Math.random() < 0.01) { // Log only occasionally to avoid spam
+      console.log(`Player position: (${this.player.x}, ${this.player.y}), Canvas: ${this.canvas.width}x${this.canvas.height}`);
+    }
   }
 
   private updateLevelProgress() {
@@ -164,5 +168,8 @@ export class GameEngine {
   // Input methods
   public setInput(key: 'left' | 'right' | 'jump', pressed: boolean) {
     this.inputState[key] = pressed;
+    if (pressed) {
+      console.log(`Input: ${key} pressed, Player at (${this.player.x}, ${this.player.y})`);
+    }
   }
 }
