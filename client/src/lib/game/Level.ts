@@ -68,7 +68,7 @@ export class Level {
 
     // Add many more sensors spread across the world
     this.collectibles.push(
-      new Collectible(100, 470, 'sensor'),
+      new Collectible(300, 470, 'sensor'),
       new Collectible(250, 370, 'sensor'),
       new Collectible(450, 320, 'sensor'),
       new Collectible(650, 270, 'sensor'),
@@ -113,7 +113,7 @@ export class Level {
 
     // Add motors and gears across the wider world
     this.collectibles.push(
-      new Collectible(50, 470, 'gear'),
+      new Collectible(300, 470, 'gear'),
       new Collectible(180, 390, 'motor'),
       new Collectible(330, 340, 'gear'),
       new Collectible(480, 290, 'motor'),
@@ -170,7 +170,7 @@ export class Level {
 
     // Add batteries and wires across the wider world
     this.collectibles.push(
-      new Collectible(80, 470, 'wire'),
+      new Collectible(300, 470, 'wire'),
       new Collectible(150, 420, 'battery'),
       new Collectible(280, 370, 'wire'),
       new Collectible(380, 320, 'battery'),

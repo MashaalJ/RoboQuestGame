@@ -77,6 +77,11 @@ export class GameEngine {
     this.currentLevel = new Level(levelNumber);
     this.player.reset(100, 400);
     this.updateLevelProgress();
+    
+    // Ensure game is running when loading new level
+    if (!this.isRunning) {
+      this.start();
+    }
   }
 
   private gameLoop = (currentTime: number) => {

@@ -109,7 +109,10 @@ export const useRoboGame = create<RoboGameStore>()(
         set((state) => ({
           currentLevel: (state.currentLevel + 1) as GameLevel,
           phase: "playing",
-          levelProgress: { collected: 0, total: 0 }
+          levelProgress: { collected: 0, total: 0 },
+          showEducationalPopup: false, // Hide any popups
+          currentFact: "",
+          currentFactEmoji: ""
         }));
       } else {
         get().completeGame();
